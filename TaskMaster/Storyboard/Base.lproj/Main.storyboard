@@ -34,12 +34,27 @@
                                                 <color key="textColor" red="0.28627452250000002" green="0.49019610879999997" blue="0.88235294819999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bu-2K-3I8">
+                                                <rect key="frame" x="348" y="12.666666666666671" width="35" height="35"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="35" id="BSz-ou-FU6"/>
+                                                    <constraint firstAttribute="height" constant="35" id="wkb-SI-TR8"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="Sort"/>
+                                                <connections>
+                                                    <action selector="sortTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WQ1-Tl-Z95"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="XRl-Qa-pzn"/>
                                             <constraint firstItem="Zd4-g8-Obi" firstAttribute="leading" secondItem="gKg-OX-Flt" secondAttribute="leading" constant="10" id="Xlm-7q-zmM"/>
                                             <constraint firstItem="Zd4-g8-Obi" firstAttribute="centerY" secondItem="gKg-OX-Flt" secondAttribute="centerY" id="fEY-zM-CAD"/>
+                                            <constraint firstAttribute="trailing" secondItem="6bu-2K-3I8" secondAttribute="trailing" constant="10" id="nCF-dH-dGv"/>
+                                            <constraint firstItem="6bu-2K-3I8" firstAttribute="centerY" secondItem="Zd4-g8-Obi" secondAttribute="centerY" id="ruS-sS-Icm"/>
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="9aE-1W-OQt">
@@ -798,6 +813,7 @@
         <image name="Date" width="48" height="48"/>
         <image name="Location" width="48" height="48"/>
         <image name="Priority" width="64" height="64"/>
+        <image name="Sort" width="50" height="50"/>
         <image name="Time" width="40" height="40"/>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="info.circle.fill" catalog="system" width="128" height="123"/>

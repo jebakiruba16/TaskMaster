@@ -1,9 +1,3 @@
-//
-//  UITextView + Extension.swift
-//  TaskMaster
-//
-//  Created by Lexicon Systems on 07/03/25.
-//
 
 
 import Foundation

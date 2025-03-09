@@ -1,9 +1,3 @@
-//
-//  TaskListTableViewCell.swift
-//  TaskMaster
-//
-//  Created by Lexicon Systems on 08/03/25.
-//
 
 import UIKit
 

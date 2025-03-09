@@ -1,9 +1,3 @@
-//
-//  TaskRepository.swift
-//  TaskMaster
-//
-//  Created by Lexicon Systems on 08/03/25.
-//
 
 import Foundation
 import CoreData
@@ -90,9 +84,7 @@ class TaskRepository: TaskRepositoryProtocol {
         if let longitude = longitude {
             task.longitude = longitude
         }
-//        if let priority = priority {
-//            task.priority = priority
-//        }
+
         task.priority = priority
         
         do {

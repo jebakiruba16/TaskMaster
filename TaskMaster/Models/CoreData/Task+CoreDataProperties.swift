@@ -1,36 +1,4 @@
-//
-//  Task+CoreDataProperties.swift
-//  TaskMaster
-//
-//  Created by Lexicon Systems on 08/03/25.
-//
-//
-//
-//import Foundation
-//import CoreData
-//
-//
-//extension Task {
-//
-//    @nonobjc public class func fetchRequest() -> NSFetchRequest<Task> {
-//        return NSFetchRequest<Task>(entityName: "Task")
-//    }
-//
-//    @NSManaged public var descriptionField: String?
-//    @NSManaged public var dueDate: Date?
-//    @NSManaged public var dueTime: Date?
-//    @NSManaged public var title: String?
-//    @NSManaged public var latitude: Double
-//    @NSManaged public var longitude: Double
-//    @NSManaged public var location: String?
-//    @NSManaged public var priority: String?
-//    @NSManaged public var category: String?
-//
-//}
-//
-//extension Task : Identifiable {
-//
-//}
+
 
 import Foundation
 import CoreData

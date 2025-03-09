@@ -17,7 +17,7 @@ class TaskListViewController: UIViewController, TaskCreationDelegate, UISearchBa
     var sortedCategories: [String] = []
     let refreshControl = UIRefreshControl()
     
-    var currentSortCriteria: SortCriteria = .dueDate 
+    var currentSortCriteria: SortCriteria = .dueDate
     
     enum SortCriteria {
         case dueDate
@@ -77,7 +77,7 @@ class TaskListViewController: UIViewController, TaskCreationDelegate, UISearchBa
             searchBar.isHidden = false
         }
     }
-
+    
     
     func groupTasksByCategory() {
         groupedTasks = [:]
@@ -165,9 +165,9 @@ class TaskListViewController: UIViewController, TaskCreationDelegate, UISearchBa
         case .category:
             filteredTasks.sort { ($0.category ?? "") < ($1.category ?? "") }
         }
-        groupTasksByCategory() // Re-group after sorting
+        groupTasksByCategory()
     }
-
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             filteredTasks = tasks
@@ -179,7 +179,7 @@ class TaskListViewController: UIViewController, TaskCreationDelegate, UISearchBa
                 let matchesCategory = task.category?.lowercased().contains(lowercasedSearchText) ?? false
                 
                 let matchesDueDate = task.dueDate?.formattedDateString.contains(lowercasedSearchText) ?? false
-        
+                
                 let matchesPriority = "\(task.priority ?? 0)".contains(lowercasedSearchText) ||
                 task.priority.description.lowercased().contains(lowercasedSearchText) ?? false
                 
@@ -209,7 +209,7 @@ class TaskListViewController: UIViewController, TaskCreationDelegate, UISearchBa
         createTaskVC.delegate = self
         present(createTaskVC, animated: true)
     }
-
+    
     // CLLocationManager Delegate methods
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let newLocation = locations.last else { return }
@@ -220,7 +220,7 @@ class TaskListViewController: UIViewController, TaskCreationDelegate, UISearchBa
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to get location: \(error.localizedDescription)")
     }
-
+    
     func checkForNearbyTasks() {
         guard let userLocation = userLocation else { return }
         
@@ -228,21 +228,20 @@ class TaskListViewController: UIViewController, TaskCreationDelegate, UISearchBa
             if task.latitude > 0 && task.longitude > 0 {
                 let taskLocation = CLLocation(latitude: task.latitude, longitude: task.longitude)
                 let distance = userLocation.distance(from: taskLocation)
-
+                
                 if distance < 100 {
                     sendPushNotification(for: task)
                 }
             }
         }
     }
-
+    
     func sendPushNotification(for task: Task) {
         let content = UNMutableNotificationContent()
         content.title = "You're near a task!"
         content.body = "Reminder: \(task.title ?? "No title") is near you."
         content.sound = .default
         
-        // Trigger the notification to send immediately
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         
         let request = UNNotificationRequest(identifier: task.objectID.uriRepresentation().absoluteString, content: content, trigger: trigger)
@@ -252,6 +251,31 @@ class TaskListViewController: UIViewController, TaskCreationDelegate, UISearchBa
                 print("Error scheduling notification: \(error.localizedDescription)")
             }
         }
+    }
+    
+    
+    func sortAndGroupTasks() {
+        
+        filteredTasks.sort { ($0.dueDate ?? Date()) < ($1.dueDate ?? Date()) }
+        
+        groupedTasks = [:]
+        for task in filteredTasks {
+            guard let category = task.category else { continue }
+            if groupedTasks[category] == nil {
+                groupedTasks[category] = []
+            }
+            
+            groupedTasks[category]?.append(task)
+        }
+        
+        sortedCategories = groupedTasks.keys.sorted()
+        
+        taskListTableView.reloadData()
+    }
+    
+    @IBAction func sortTapped(_ sender: UIButton) {
+        sortAndGroupTasks()
+        taskListTableView.reloadData()
     }
 }
 
@@ -330,7 +354,6 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
                 task.isComplete.toggle()
                 let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
                 
-                // Cancel notifications when a task is completed
                 if task.isComplete {
                     UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [task.objectID.uriRepresentation().absoluteString])
                 }
@@ -343,7 +366,7 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 tasks = taskRepository.fetchAllTasks()
                 filteredTasks = tasks
-                sortTasks() // Re-sort tasks after completion
+                sortTasks()
                 taskListTableView.reloadData()
             }
         }

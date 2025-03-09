@@ -1,9 +1,4 @@
-//
-//  UITextField + Extension.swift
-//  TaskMaster
-//
-//  Created by Lexicon Systems on 08/03/25.
-//
+
 
 import Foundation
 import UIKit
